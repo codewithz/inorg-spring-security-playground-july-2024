@@ -33,10 +33,10 @@ public class ProjectSecurityConfig {
     public UserDetailsService userDetailsService(){
 
         UserDetails user= User.withUsername("user").
-                            password("password").authorities("READ").build();
+                            password("{noop}password").authorities("READ").build();
 
         UserDetails admin= User.withUsername("admin").
-                password("54321").authorities("ADMIN").build();
+                password("{noop}54321").authorities("ADMIN").build();
 
         return new InMemoryUserDetailsManager(user, admin);
     }

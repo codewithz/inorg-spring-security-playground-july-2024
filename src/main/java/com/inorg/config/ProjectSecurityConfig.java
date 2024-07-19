@@ -23,7 +23,9 @@ public class ProjectSecurityConfig {
 
 //        http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
 //        http.authorizeHttpRequests((requests) -> requests.anyRequest().denyAll());
-        http.authorizeHttpRequests((requests)->{
+        http
+                .csrf(csrfConfig->csrfConfig.disable())
+                .authorizeHttpRequests((requests)->{
             requests
                     .requestMatchers("/accounts","/balance","/loans","/cards").authenticated()
                     .requestMatchers("/notices","/contact","/error","/register").permitAll();

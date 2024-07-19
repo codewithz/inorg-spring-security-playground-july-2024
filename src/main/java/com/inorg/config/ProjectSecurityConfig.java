@@ -1,6 +1,8 @@
 package com.inorg.config;
 
+import com.inorg.filter.AuthoritiesLoggingAfterFilter;
 import com.inorg.filter.CsrfCookieFilter;
+import com.inorg.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,6 +53,8 @@ public class ProjectSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(),BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationBeforeFilter(),BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests)->{
             requests
                     .requestMatchers("/accounts").hasAuthority("READ")

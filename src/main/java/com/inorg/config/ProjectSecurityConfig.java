@@ -53,7 +53,12 @@ public class ProjectSecurityConfig {
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests)->{
             requests
-                    .requestMatchers("/accounts","/balance","/loans","/cards").authenticated()
+                    .requestMatchers("/accounts").hasAuthority("READ")
+                    .requestMatchers("/balance").hasAnyAuthority("READ","WRITE")
+                    .requestMatchers("/loans").hasAuthority("READ")
+                    .requestMatchers("/cards").hasAuthority("READ")
+//                    .requestMatchers("/card").hasRole("ROLE_ADMIN")
+  //                  .requestMatchers("/accounts","/balance","/loans","/cards").authenticated()
                     .requestMatchers("/notices","/contact","/error","/register").permitAll();
         });
         http.formLogin(withDefaults());

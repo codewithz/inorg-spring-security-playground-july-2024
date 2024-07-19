@@ -42,6 +42,7 @@ public class ProjectSecurityConfig {
                         config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
                         config.setAllowedMethods(Collections.singletonList("*")); //GET,PUT,POST,DELETE
                         config.setAllowCredentials(true);
+                        config.setExposedHeaders(Collections.singletonList("Authorization"));
                         config.setAllowedHeaders(Collections.singletonList("*"));
                         config.setMaxAge(3600L);
                         return config;
